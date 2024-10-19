@@ -4,7 +4,7 @@ import useLocalStorage from 'use-local-storage';
 import Tooltip from '@mui/material/Tooltip';
 import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
-import { IconButton, InputLabel, MenuItem, Paper, Select, Stack, TextField } from '@mui/material';
+import { Alert, IconButton, InputLabel, MenuItem, Paper, Select, Stack, TextField } from '@mui/material';
 import { saveAs } from 'file-saver';
 import { BetweenShift, PlanRequest, RequestEntity, RequestState } from './types/RequestType';
 import Divider from '@mui/material/Divider';
@@ -17,6 +17,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { ArrowDownward } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
+import { PlanRequestEmoji } from './utils/emojis';
 
 function App() {
   const [request, setRequest] = useState<PlanRequest>();
@@ -203,6 +204,49 @@ function App() {
     setDateApplied(true);
   }
 
+  const betweenSampleButton = () => {
+    const style = {
+      width: "5.5em", 
+      height: "2em", 
+      alignContent: "center", 
+      textAlign: "center" , 
+      cursor: "pointer",
+      userSelect: "none",
+      backgroundColor: "WhiteSmoke"
+    } as React.CSSProperties;
+
+    return <Paper 
+      elevation={1} 
+      style={style}
+    >
+      <Stack direction={"row"} alignItems={"center"} justifyContent={"center"}>
+        <small style={{fontSize: "10px"}}>Wybierz godziny</small>
+      </Stack>
+    </Paper>
+  }
+  
+  const howToUseItSection = () => {
+    return <Typography>
+      <b>Stany</b>
+      <ul>
+        <li>{PlanRequestEmoji.Vacation} - zaznacz jeśli nie będzie Cię cały dzień</li>
+        <li>{PlanRequestEmoji.Available} - zaznacz jeśli jesteś dostępny w danym czasie</li>
+        <li>{PlanRequestEmoji.Wanted} - zaznacz jeśli preferujesz zmianę w danym czasie</li>
+        <li>{PlanRequestEmoji.Unavailable} - zaznacz jeśli nie możesz być na zmianie w danym czasie</li>
+        <li>
+          <Stack direction={"row"} style={{
+            alignItems: "center"
+          }}>
+            {betweenSampleButton()}
+            <>&nbsp;- wybierz jakie godziny międzyzmiany preferujesz</>
+          </Stack>
+          </li>
+      </ul>
+      <Alert severity="info">Zaznaczaj {PlanRequestEmoji.Vacation} i {PlanRequestEmoji.Unavailable} tylko w miejscach, w których wiesz, że nie możesz być w pracy.</Alert>
+      <Alert severity="warning">Brak zaznaczenia międzyzmiany oznacza brak preferencji międzyzmiany. Międzyzmiana w dniu bez {PlanRequestEmoji.Vacation} może zostać rozpisana.</Alert>
+    </Typography>
+  }
+
   return (
     <Grid container spacing={2} marginLeft={"20px"} marginRight={"20px"} marginTop={"20px"}>
       <Grid size={12}>
@@ -236,10 +280,7 @@ function App() {
             <Typography>Jak używać?</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget.
-            </Typography>
+            {howToUseItSection()}
           </AccordionDetails>
         </Accordion>
         <InputLabel id="month-label">Miesiąc</InputLabel>
