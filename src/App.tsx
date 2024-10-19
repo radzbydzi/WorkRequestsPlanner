@@ -227,6 +227,19 @@ function App() {
   
   const howToUseItSection = () => {
     return <Typography>
+      <b>Nowy plan</b>
+      <ul>
+        <li>Wybierz miesiąc i rok</li>
+        <li>Kliknij zatwierdź</li>
+        <li>Wypełnij stany</li>
+        <li>Kliknij Save As. Nadaj nazwę zawierajaca twoje imię</li>
+      </ul>
+      <b>Edycja planu</b>
+      <ul>
+        <li>Kliknij Load i wczytaj plik</li>
+        <li>Zrób zmiany</li>
+        <li>Kliknij Save As</li>
+      </ul>
       <b>Stany</b>
       <ul>
         <li>{PlanRequestEmoji.Vacation} - zaznacz jeśli nie będzie Cię cały dzień</li>
